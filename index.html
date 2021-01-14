@@ -6,6 +6,23 @@
     <title>Library</title>
 </head>
 <body>
-    
+    <h1>My library</h1>
+    <section id="library-list">
+        <ul id="books-list">
+
+        </ul>
+    </section>
+    <form id="add-book-form">
+        <label for="book-title">Book title</label>
+        <input type="text" name="book-title" class="add-input" id="book-title" required>
+        <label for="book-author">Book author</label>
+        <input type="text" name="book-author" class="add-input" id="book-author" required>
+        <label for="book-nbPage">Book nb pages</label>
+        <input type="number" name="book-nb-page" class="add-input" id="book-nb-page" required>
+        <label for="book-read">Book read</label>
+        <input type="checkbox" name="book-read" id="book-read">
+        <input type="submit" value="Add a book">
+    </form>
+    <script src="logic.js"></script>
 </body>
 </html>

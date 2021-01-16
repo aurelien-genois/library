@@ -1,0 +1,22 @@
+#books-list {
+    display: flex;
+    list-style: none;
+}
+#books-list li {
+    margin: 0 10px;
+    padding: 10px;
+    background-color:  aquamarine;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#add-book-form {
+    visibility: collapse;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s;
+}
+#add-book-form.display {
+    visibility: visible;
+    opacity: 1;
+}

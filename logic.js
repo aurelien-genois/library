@@ -4,6 +4,7 @@ const booksList = document.querySelector('#books-list');
 const defaultData = [
     {"title":"The Hobbit","author":"J. R. R. Tolkien","nbPages":"320","read":false,"coverLink":"https://prodimage.images-bn.com/pimages/9780547928227_p0_v2_s550x406.jpg"},
     {"title":"Concrete Rose","author":"Angie Thomas","nbPages":"320","read":false,"coverLink":"https://prodimage.images-bn.com/pimages/9780063046788_p0_v2_s550x406.jpg"},
+    {"title":"Fofo's Life","author":"Fofo","nbPages":"0","read":true,"coverLink":"https://i.ebayimg.com/images/g/-s4AAOSw90le2SMx/s-l400.jpg"},
     {"title":"Grown","author":"Tiffany D Jackson","nbPages":"384","read":false,"coverLink":"https://prodimage.images-bn.com/pimages/9780062840356_p0_v2_s550x406.jpg"},
     {"title":"Brave New Worl","author":"Aldous Huxley","nbPages":"288","read":false,"coverLink":"https://prodimage.images-bn.com/pimages/9780060850524_p0_v3_s550x406.jpg"},
     {"title":"Jujutsu Kaisen, Vol. 1","author":"Gege Akutami","nbPages":"192","read":false,"coverLink":"https://prodimage.images-bn.com/pimages/9781974710027_p0_v1_s550x406.jpg"},
@@ -47,7 +48,8 @@ function createBookItem(title, author, nbPages, read, bookIndex, coverLink) {
     
     const bookCover = document.createElement('img');
     bookCover.classList.add('book-cover');
-    bookCover.src = coverLink || "https://ravenspacepublishing.org/wp-content/uploads/2019/04/default-book.jpg";
+    // need to manage when the link is not a link or is dead
+    bookCover.src = coverLink || "https://ravenspacepublishing.org/wp-content/uploads/2019/04/default-book.jpg"; 
     
     const bookAuthorText = document.createElement('p');
     bookAuthorText.classList.add('book-author');

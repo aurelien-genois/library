@@ -7,24 +7,28 @@
     <title>Library</title>
 </head>
 <body>
-    <h1>My library</h1>
+    <h1 id="library-title">My library</h1>
     <section id="library-list">
         <ul id="books-list">
 
         </ul>
     </section>
-    <button id="new-book">New book</button>
-    <form id="add-book-form">
-        <label for="book-title">Book title</label>
-        <input type="text" name="book-title" class="add-input" id="book-title" required>
-        <label for="book-author">Book author</label>
-        <input type="text" name="book-author" class="add-input" id="book-author" required>
-        <label for="book-nbPage">Book nb pages</label>
-        <input type="number" name="book-nb-page" class="add-input" id="book-nb-page" required>
-        <label for="book-read">Book read</label>
-        <input type="checkbox" name="book-read" id="book-read">
-        <input type="submit" value="Add a book">
-    </form>
+    <section id="new-book-section">
+        <button id="new-book-btn">Add a new book</button>
+        <form id="add-book-form">
+            <label for="book-title">Title:</label>
+            <input type="text" name="book-title" class="add-input" id="form-book-title" required>
+            <label for="book-author">Author:</label>
+            <input type="text" name="book-author" class="add-input" id="form-book-author" required>
+            <label for="book-nbPage">Number of pages:</label>
+            <input type="number" name="book-nb-page" class="add-input" id="form-book-nb-page" required>
+            <label for="book-cover-link">Link for the cover image (Optional):</label>
+            <input type="text" name="book-cover-link" class="add-input" id="form-book-cover-link">
+            <label for="book-read">Already read?</label>
+            <input type="checkbox" name="book-read" id="form-book-read">
+            <input type="submit" value="Add the book">
+        </form>
+    </section>
     <script src="logic.js"></script>
 </body>
 </html>

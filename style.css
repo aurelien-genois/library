@@ -1,5 +1,5 @@
 html {
-    /* 1rem = 16px, so when defiene at 62.5% 1rem = 10 px */
+    /* 1rem = 16px, so when define at 62.5% 1rem = 10 px */
     /* for responsive size, just change this font-size in media-query (for ex retina screen) */
     font-size: 62.5%;
 }

@@ -34,8 +34,8 @@ Book.prototype.toggleRead = function() {
 
 // when the book is in the local storage, it loosed is prototype, so its methods too
 myLibrary.map(book => {
-    // TEMP add Book.prototype to the objects from the localStorage
-    book.__proto__ = Book.prototype;
+    Object.setPrototypeOf(book, Book.prototype);
+
 });
 
 
@@ -112,7 +112,6 @@ function removeBook(index) {
 
 function toggleReadStatus(index) {
     myLibrary[index].toggleRead();
-    textContent = myLibrary[index].read ? 'read' : 'unread';
     displayBooks(myLibrary);
     localStorage.setItem('books', JSON.stringify(myLibrary));
 }

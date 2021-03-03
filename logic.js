@@ -15,21 +15,22 @@ let myLibrary = JSON.parse(localStorage.getItem('books')) || defaultData;
 
 // Book constructor
 
-function Book(title, author, nbPages, coverLink) {
-    this.title = title;
-    this.author = author;
-    this.nbPages = nbPages;
-    this.read = false;
-    this.coverLink = coverLink;
-}
-Book.prototype.info = function() {
-    return `${this.title} by ${this.author}, ${this.nbPages} pages, ${this.read ? 'read' : 'not read yet'}`;
-}
-Book.prototype.toggleRead = function() {
-    this.read = !this.read;
-    //this.read = this.read ? false : true;
-}
+class Book {
+    constructor(title, author, nbPages, coverLink) {
+        this.title = title;
+        this.author = author;
+        this.nbPages = nbPages;
+        this.read = false;
+        this.coverLink = coverLink;
+    };
 
+    info() {
+        return `${this.title} by ${this.author}, ${this.nbPages} pages, ${this.read ? 'read' : 'not read yet'}`;
+    };
+    toggleRead() {
+        this.read = !this.read;
+    };
+}
 // Library
 
 // when the book is in the local storage, it loosed is prototype, so its methods too

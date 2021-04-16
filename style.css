@@ -15,13 +15,33 @@ body {
 #library-list {
   background-color: #deb887;
 }
+
 #books-list {
-  display: flex;
+  /* width: -moz-fit-content;
+  max-width: 100rem; */
+  width: min-content;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(5, 1fr);
   list-style: none;
-  flex-wrap: wrap;
-  max-width: 144rem;
   margin: auto;
-  background-color: rgb(75, 129, 68);
+  background-color: rgb(136, 80, 54);
+  border: 1rem solid rgb(136, 80, 54);
+}
+@media screen and (max-width: 1380px) {
+  #books-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media screen and (max-width: 1120px) {
+  #books-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media screen and (max-width: 850px) {
+  #books-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 #header {
   background: linear-gradient(to bottom, #aa8554, #deb887);
@@ -34,18 +54,22 @@ body {
 }
 
 /* Book Items */
-#books-list li,
-#add-book-zone {
-  margin: 1rem;
+#books-list li {
+  border-style: solid;
+  border-image: linear-gradient(to bottom, rgb(37, 16, 16), rgb(95, 41, 41)) 1
+    100%;
+  border-image-slice: 1;
+  border-width: 3rem 2rem 0 2rem;
   padding: 1rem;
-  background-color: aquamarine;
+  background-color: rgb(179, 108, 86);
   width: 20rem;
-  height: 36rem;
+  height: 38rem;
+  display: grid;
+  grid-template-rows: 1fr 1fr repeat(3, auto);
+  justify-items: center;
+}
+#books-list #add-book-zone {
   display: flex;
-  flex: 1 1 1;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
 }
 
 .book-title {
@@ -73,29 +97,11 @@ body {
   justify-content: space-between;
   margin: 0.5rem 0;
 }
+.book-btns button {
+  font-size: inherit;
+}
 
 /* Add Book Form */
-#new-book-section {
-  background-color: rgb(37, 75, 33);
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  overflow: hidden;
-}
-#new-book-btn {
-  display: block;
-  font-size: 1.4rem;
-  margin: auto;
-  width: 20rem;
-  transition: visibility 0s, opacity 0.5s;
-  visibility: visible;
-  opacity: 1;
-}
-#new-book-btn.collapse {
-  visibility: collapse;
-  opacity: 0;
-}
 @keyframes add-book-form-display {
   from {
     opacity: 0;
@@ -103,6 +109,17 @@ body {
   to {
     opacity: 1;
   }
+}
+
+#new-book-btn {
+  font-size: 5rem;
+  font-weight: bold;
+  line-height: 0;
+  margin: auto;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  animation: add-book-form-display 1s;
 }
 #add-book-form {
   display: flex;
@@ -119,4 +136,11 @@ body {
 
 #footer {
   background-color: gray;
+}
+
+/* mobile */
+@media screen and (max-width: 500px) {
+  html {
+    font-size: 1.8vw;
+  }
 }

@@ -1,34 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Library</title>
-</head>
-<body>
-    <h1 id="library-title">My library</h1>
-    <section id="library-list">
-        <ul id="books-list">
+  </head>
+  <body>
+    <header id="header">
+      <h1 id="library-title">My library</h1>
+    </header>
 
-        </ul>
-    </section>
-    <section id="new-book-section">
-        <button id="new-book-btn">Add a new book</button>
-        <form id="add-book-form">
-            <label for="book-title">Title:</label>
-            <input type="text" name="book-title" class="add-input" id="form-book-title" required>
-            <label for="book-author">Author:</label>
-            <input type="text" name="book-author" class="add-input" id="form-book-author" required>
-            <label for="book-nb-page">Number of pages:</label>
-            <input type="number" name="book-nb-page" class="add-input" id="form-book-nb-page" required>
-            <label for="book-cover-link">Link for the cover image (Optional):</label>
-            <input type="text" name="book-cover-link" class="add-input" id="form-book-cover-link">
-            <label for="book-read">Already read?</label>
-            <input type="checkbox" name="book-read" id="form-book-read">
-            <input type="submit" value="Add the book">
-        </form>
-    </section>
+    <main id="library-list">
+      <ul id="books-list"></ul>
+    </main>
+
+    <footer id="footer"></footer>
     <script src="logic.js"></script>
-</body>
+  </body>
 </html>

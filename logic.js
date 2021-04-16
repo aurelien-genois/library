@@ -36,7 +36,7 @@ function createBookItem(title, author, nbPages, read, bookIndex, coverLink) {
 
   const bookNbPagesText = document.createElement('p');
   bookNbPagesText.classList.add('book-nb-pages');
-  bookNbPagesText.textContent = 'Number of pages: ' + nbPages;
+  bookNbPagesText.textContent = `${nbPages} pages`;
 
   const button = document.createElement('button');
   button.classList.add('btn-change-status');
@@ -71,7 +71,7 @@ function createAddBookZone() {
 
   const addBookBtn = document.createElement('button');
   addBookBtn.id = 'new-book-btn';
-  addBookBtn.textContent = 'Add a new book';
+  addBookBtn.textContent = '+';
   addBookBtn.addEventListener('click', function () {
     this.replaceWith(createAddBookForm());
   });
@@ -133,6 +133,7 @@ function createAddBookForm() {
   titleInput.id = 'title-input';
   titleInput.classList.add('form-input');
   titleInput.name = 'title';
+  titleInput.setAttribute('maxlength', '30');
   titleInput.required = true;
 
   const authorLabel = document.createElement('label');
@@ -145,6 +146,7 @@ function createAddBookForm() {
   authorInput.id = 'author-input';
   authorInput.classList.add('form-input');
   authorInput.name = 'author';
+  authorInput.setAttribute('maxlength', '30');
   authorInput.required = true;
 
   const nbPagesLabel = document.createElement('label');
@@ -155,6 +157,7 @@ function createAddBookForm() {
   const nbPagesInput = document.createElement('input');
   nbPagesInput.type = 'number';
   nbPagesInput.max = '5000';
+  nbPagesInput.min = '0';
   nbPagesInput.id = 'nb-pages-input';
   nbPagesInput.classList.add('form-input');
   nbPagesInput.name = 'nb-pages';

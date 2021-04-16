@@ -72,7 +72,9 @@ function createAddBookZone() {
   const addBookBtn = document.createElement('button');
   addBookBtn.id = 'new-book-btn';
   addBookBtn.textContent = 'Add a new book';
-  addBookBtn.addEventListener('click', displayAddBookForm);
+  addBookBtn.addEventListener('click', function () {
+    this.replaceWith(createAddBookForm());
+  });
 
   addBookZone.append(addBookBtn);
 
@@ -201,10 +203,6 @@ function createAddBookForm() {
   return form;
 }
 
-function displayAddBookForm() {
-  this.replaceWith(createAddBookForm());
-}
-
 function manageNewBookSubmit(e) {
   e.preventDefault();
   const data = new FormData(this);
@@ -239,12 +237,18 @@ booksList.addEventListener('click', (e) => {
     return;
   }
   const bookIndex = e.target.parentNode.parentNode.dataset.bookIndex;
+  let confirmRemove;
   switch (e.target.dataset.action) {
     case 'remove':
-      removeBook(bookIndex);
+      confirmRemove = confirm(
+        `Are you sure you want to remove ${myLibrary[bookIndex].title}`
+      );
       break;
     case 'change-status':
       toggleReadStatus(bookIndex);
+  }
+  if (confirmRemove) {
+    removeBook(bookIndex);
   }
 });
 

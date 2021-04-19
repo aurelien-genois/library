@@ -7,63 +7,87 @@ html {
   margin: 0;
   padding: 0;
 }
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap');
+button {
+  cursor: pointer;
+}
 
 body {
-  font-family: 'Cormorant Garamond', serif;
-}
-#library-list {
-  background-color: #deb887;
+  font-family: 'Amarante', sans-serif;
 }
 
-#books-list {
-  /* width: -moz-fit-content;
-  max-width: 100rem; */
-  width: min-content;
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: repeat(5, 1fr);
-  list-style: none;
-  margin: auto;
-  background-color: rgb(136, 80, 54);
-  border: 1rem solid rgb(136, 80, 54);
+/* header */
+#header,
+#footer {
+  background: #272017;
+  color: rgb(231, 173, 66);
 }
-@media screen and (max-width: 1380px) {
-  #books-list {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-@media screen and (max-width: 1120px) {
-  #books-list {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-@media screen and (max-width: 850px) {
-  #books-list {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-#header {
-  background: linear-gradient(to bottom, #aa8554, #deb887);
+#header::after,
+#footer::before {
+  content: '';
+  display: block;
+  height: 1rem;
+  background-color: rgb(128, 37, 21);
+  border: solid black 0.1rem;
+  border-width: 0.2rem 0;
 }
 #library-title {
   text-align: center;
   padding: 2rem 0;
   font-size: 3.5rem; /*35 px*/
-  color: rgb(95, 8, 8);
+}
+#footer {
+  padding-bottom: 1.5rem;
+}
+#footer a {
+  color: white;
+  text-align: center;
+  display: block;
+  margin-top: 1.5rem;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+#footer a:hover {
+  color: inherit;
+}
+
+/* Responsive Books list */
+#library-list {
+  background-color: #6e563a;
+}
+#books-list {
+  width: min-content;
+  display: grid;
+  grid-gap: 0.2rem;
+  grid-template-columns: repeat(5, 1fr);
+  list-style: none;
+  margin: auto;
+  background-color: #272017;
+  border: solid black 0.1rem;
+  border-width: 0 0.2rem;
+}
+@media screen and (max-width: 1120px) {
+  #books-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media screen and (max-width: 920px) {
+  #books-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media screen and (max-width: 700px) {
+  #books-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* Book Items */
 #books-list li {
-  border-style: solid;
-  border-image: linear-gradient(to bottom, rgb(37, 16, 16), rgb(95, 41, 41)) 1
-    100%;
-  border-image-slice: 1;
-  border-width: 3rem 2rem 0 2rem;
+  /* border: solid black 1px; */
   padding: 1rem;
-  background-color: rgb(179, 108, 86);
   width: 20rem;
   height: 38rem;
+  background-color: rgb(202, 161, 127);
   display: grid;
   grid-template-rows: 1fr 1fr repeat(3, auto);
   justify-items: center;
@@ -74,25 +98,28 @@ body {
 
 .book-title {
   text-align: center;
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   font-weight: 600;
+  line-height: 85%;
 }
 .book-author {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   margin: 0.5rem;
   text-align: center;
+  line-height: 85%;
 }
 .book-cover {
-  height: 22rem;
+  height: 25rem;
   object-fit: scale-down;
-  max-width: 18rem;
+  max-width: 20rem;
   margin: 0.5rem 0;
+  border: white 0.1rem solid;
 }
 .book-nb-pages {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 }
 .book-btns {
-  width: 100%;
+  width: 20rem;
   display: flex;
   justify-content: space-between;
   margin: 0.5rem 0;
@@ -124,23 +151,50 @@ body {
 #add-book-form {
   display: flex;
   flex-direction: column;
-  margin: auto;
-  justify-content: center;
   align-items: center;
   font-size: 1.4rem;
   animation: add-book-form-display 1s;
 }
+#add-book-form-title {
+  margin-bottom: 3rem;
+  margin-top: 1rem;
+  font-size: 1.7rem;
+  width: 15rem;
+  text-align: center;
+}
 #add-book-form input {
-  margin: 0 2rem 0 1rem;
+  margin-bottom: 1rem;
+  width: 17rem;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  /* line-height: 50%; */
+  font-size: inherit;
+}
+#add-book-form input::placeholder {
+  font-size: inherit;
+}
+#nb-pages-div,
+#read-div {
+  display: flex;
+}
+#add-book-form #nb-pages-input {
+  margin-left: 0.5rem;
+  width: 6rem;
+}
+#add-book-form #read-input {
+  margin-left: 0.5rem;
+  width: 2rem;
+}
+#add-book-form input[type='submit'] {
+  margin-top: 3rem;
+  cursor: pointer;
 }
 
-#footer {
-  background-color: gray;
-}
+/* footer */
 
 /* mobile */
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 470px) {
   html {
-    font-size: 1.8vw;
+    font-size: 2.1vw;
   }
 }

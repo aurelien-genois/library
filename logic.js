@@ -41,12 +41,12 @@ function createBookItem(title, author, nbPages, read, bookIndex, coverLink) {
   const button = document.createElement('button');
   button.classList.add('btn-change-status');
   button.setAttribute('data-action', 'change-status');
-  button.textContent = read ? 'read' : 'unread';
+  button.textContent = read ? 'R' : 'r';
 
   const removeButton = document.createElement('button');
   removeButton.classList.add('btn-remove');
   removeButton.setAttribute('data-action', 'remove');
-  removeButton.textContent = 'Remove';
+  removeButton.textContent = 'X';
 
   const bookButtons = document.createElement('div');
   bookButtons.classList.add('book-btns');
@@ -55,11 +55,13 @@ function createBookItem(title, author, nbPages, read, bookIndex, coverLink) {
 
   const li = document.createElement('li');
   li.setAttribute('data-book-index', bookIndex);
-  li.appendChild(bookTitleText);
-  li.appendChild(bookAuthorText);
-  li.appendChild(bookCover);
-  li.appendChild(bookNbPagesText);
-  li.appendChild(bookButtons);
+  li.append(
+    bookTitleText,
+    bookAuthorText,
+    bookNbPagesText,
+    bookCover,
+    bookButtons
+  );
 
   return li;
 }
@@ -123,12 +125,12 @@ function createAddBookForm() {
   const form = document.createElement('form');
   form.id = 'add-book-form';
 
-  const titleLabel = document.createElement('label');
-  titleLabel.id = 'title-label';
-  titleLabel.setAttribute('for', 'title-input');
-  titleLabel.textContent = 'Title:';
+  const formTitle = document.createElement('h3');
+  formTitle.id = 'add-book-form-title';
+  formTitle.textContent = "Complete the book's infos";
 
   const titleInput = document.createElement('input');
+  titleInput.placeholder = 'Title:';
   titleInput.type = 'text';
   titleInput.id = 'title-input';
   titleInput.classList.add('form-input');
@@ -136,18 +138,17 @@ function createAddBookForm() {
   titleInput.setAttribute('maxlength', '30');
   titleInput.required = true;
 
-  const authorLabel = document.createElement('label');
-  authorLabel.id = 'author-label';
-  authorLabel.setAttribute('for', 'author-input');
-  authorLabel.textContent = 'Author:';
-
   const authorInput = document.createElement('input');
+  authorInput.placeholder = 'Author:';
   authorInput.type = 'text';
   authorInput.id = 'author-input';
   authorInput.classList.add('form-input');
   authorInput.name = 'author';
   authorInput.setAttribute('maxlength', '30');
   authorInput.required = true;
+
+  const nbPagesDiv = document.createElement('div');
+  nbPagesDiv.id = 'nb-pages-div';
 
   const nbPagesLabel = document.createElement('label');
   nbPagesLabel.id = 'nb-pages-label';
@@ -163,16 +164,17 @@ function createAddBookForm() {
   nbPagesInput.name = 'nb-pages';
   nbPagesInput.required = true;
 
-  const coverLinkLabel = document.createElement('label');
-  coverLinkLabel.id = 'cover-link-label';
-  coverLinkLabel.setAttribute('for', 'cover-link-input');
-  coverLinkLabel.textContent = 'Cover link (opt):';
+  nbPagesDiv.append(nbPagesLabel, nbPagesInput);
 
   const coverLinkInput = document.createElement('input');
+  coverLinkInput.placeholder = 'Cover link (opt):';
   coverLinkInput.type = 'text';
   coverLinkInput.id = 'cover-link-input';
   coverLinkInput.classList.add('form-input');
   coverLinkInput.name = 'cover-link';
+
+  const readDiv = document.createElement('div');
+  readDiv.id = 'read-div';
 
   const readLabel = document.createElement('label');
   readLabel.id = 'read-label';
@@ -185,21 +187,19 @@ function createAddBookForm() {
   readInput.classList.add('form-input');
   readInput.name = 'read';
 
+  readDiv.append(readLabel, readInput);
+
   const submitInput = document.createElement('input');
   submitInput.type = 'submit';
   submitInput.value = 'Add the book';
 
   form.append(
-    titleLabel,
+    formTitle,
     titleInput,
-    authorLabel,
     authorInput,
-    nbPagesLabel,
-    nbPagesInput,
-    coverLinkLabel,
+    nbPagesDiv,
     coverLinkInput,
-    readLabel,
-    readInput,
+    readDiv,
     submitInput
   );
   form.addEventListener('submit', manageNewBookSubmit);

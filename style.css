@@ -82,17 +82,23 @@ body {
 }
 
 /* Book Items */
-#books-list li {
-  /* border: solid black 1px; */
-  padding: 1rem;
+#add-book-zone {
+  min-height: 40rem;
+  background-color: rgba(202, 161, 127, 0.541);
+}
+.book-div,
+#add-book-form {
   width: 20rem;
   height: 38rem;
+  padding: 1rem;
+}
+.book-div {
   background-color: rgb(202, 161, 127);
   display: grid;
   grid-template-rows: 1fr 1fr repeat(3, auto);
   justify-items: center;
 }
-#books-list #add-book-zone {
+#add-book-zone {
   display: flex;
 }
 
@@ -149,10 +155,6 @@ body {
   animation: add-book-form-display 1s;
 }
 #add-book-form {
-  margin: -1rem;
-  width: inherit;
-  height: inherit;
-  padding: 1rem;
   display: flex;
   flex-direction: column;
   background-color: rgb(117, 74, 54);

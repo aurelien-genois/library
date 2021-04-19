@@ -4,8 +4,8 @@ class Book {
     this.title = title;
     this.author = author;
     this.nbPages = nbPages;
-    this.read = false;
     this.coverLink = coverLink;
+    this.read = false;
   }
 
   info() {
@@ -16,9 +16,16 @@ class Book {
   toggleRead() {
     this.read = !this.read;
   }
+  edit(title, author, nbPages, coverLink, read) {
+    this.title = title;
+    this.author = author;
+    this.nbPages = nbPages;
+    this.coverLink = coverLink;
+    this.read = read;
+  }
 }
 
-function createBookItem(title, author, nbPages, read, bookIndex, coverLink) {
+function createBookItem(title, author, nbPages, coverLink, read, bookIndex) {
   const bookTitleText = document.createElement('p');
   bookTitleText.classList.add('book-title');
   bookTitleText.textContent = title;
@@ -38,10 +45,16 @@ function createBookItem(title, author, nbPages, read, bookIndex, coverLink) {
   bookNbPagesText.classList.add('book-nb-pages');
   bookNbPagesText.textContent = `${nbPages} pages`;
 
-  const button = document.createElement('button');
-  button.classList.add('btn-change-status');
-  button.setAttribute('data-action', 'change-status');
-  button.textContent = read ? 'R' : 'r';
+  // create btns
+  const readButton = document.createElement('button');
+  readButton.classList.add('btn-change-status');
+  readButton.setAttribute('data-action', 'change-read-status');
+  readButton.textContent = read ? 'R' : 'r';
+
+  const editButton = document.createElement('button');
+  editButton.classList.add('btn-remove');
+  editButton.setAttribute('data-action', 'edit');
+  editButton.textContent = '/';
 
   const removeButton = document.createElement('button');
   removeButton.classList.add('btn-remove');
@@ -50,12 +63,12 @@ function createBookItem(title, author, nbPages, read, bookIndex, coverLink) {
 
   const bookButtons = document.createElement('div');
   bookButtons.classList.add('book-btns');
-  bookButtons.appendChild(button);
-  bookButtons.appendChild(removeButton);
+  bookButtons.append(readButton, editButton, removeButton);
 
-  const li = document.createElement('li');
-  li.setAttribute('data-book-index', bookIndex);
-  li.append(
+  const bookDiv = document.createElement('div');
+  bookDiv.classList.add('book-div');
+  bookDiv.setAttribute('data-book-index', bookIndex);
+  bookDiv.append(
     bookTitleText,
     bookAuthorText,
     bookNbPagesText,
@@ -63,7 +76,14 @@ function createBookItem(title, author, nbPages, read, bookIndex, coverLink) {
     bookButtons,
   );
 
+  const li = document.createElement('li');
+  li.append(bookDiv);
+
   return li;
+}
+
+function updateLocalStorage() {
+  localStorage.setItem('books', JSON.stringify(myLibrary));
 }
 
 // manage books
@@ -86,9 +106,9 @@ function displayBooks(library) {
       book.title,
       book.author,
       book.nbPages,
+      book.coverLink,
       book.read,
       bookIndex,
-      book.coverLink,
     );
     booksList.appendChild(bookItem);
   });
@@ -99,28 +119,56 @@ function displayBooks(library) {
   booksList.append(addBookZone);
 }
 
-function addBookToLibrary(title, author, nbPages, read, coverLink) {
+function addBookToLibrary(title, author, nbPages, coverLink, read) {
   const newBook = new Book(title, author, nbPages, coverLink);
   newBook.read = read;
-  console.log(newBook.read);
   myLibrary.push(newBook);
-  localStorage.setItem('books', JSON.stringify(myLibrary));
+  updateLocalStorage();
 }
 
 function removeBook(index) {
   myLibrary.splice(index, 1);
   displayBooks(myLibrary);
-  localStorage.setItem('books', JSON.stringify(myLibrary));
+  updateLocalStorage();
 }
 
 function toggleReadStatus(index) {
   myLibrary[index].toggleRead();
   displayBooks(myLibrary);
-  localStorage.setItem('books', JSON.stringify(myLibrary));
+  updateLocalStorage();
 }
 
+function editBook(index, formDatas) {
+  myLibrary[index].edit(...formDatas);
+  displayBooks(myLibrary);
+  updateLocalStorage();
+}
+
+function displayEditBookForm(index, thisBookDiv) {
+  const currBook = myLibrary[index];
+  const editForm = createBookForm(
+    currBook.title,
+    currBook.author,
+    currBook.nbPages,
+    currBook.coverLink,
+    currBook.read,
+  );
+  editForm.addEventListener('submit', function () {
+    const formDatas = getBookFormDatas(this);
+    editBook(index, formDatas);
+  });
+  thisBookDiv.replaceWith(editForm);
+}
 // AddBook form
-function createAddBookForm() {
+function createBookForm(
+  bookTitle,
+  bookAuthor,
+  bookNbPages,
+  bookCoverLink,
+  bookRead,
+) {
+  console.log(bookTitle, bookAuthor, bookNbPages, bookCoverLink, bookRead);
+
   const form = document.createElement('form');
   form.id = 'add-book-form';
 
@@ -130,6 +178,7 @@ function createAddBookForm() {
 
   const titleInput = document.createElement('input');
   titleInput.placeholder = 'Title:';
+  if (bookTitle) titleInput.value = bookTitle;
   titleInput.type = 'text';
   titleInput.id = 'title-input';
   titleInput.classList.add('form-input');
@@ -139,6 +188,7 @@ function createAddBookForm() {
 
   const authorInput = document.createElement('input');
   authorInput.placeholder = 'Author:';
+  if (bookAuthor) authorInput.value = bookAuthor;
   authorInput.type = 'text';
   authorInput.id = 'author-input';
   authorInput.classList.add('form-input');
@@ -156,6 +206,7 @@ function createAddBookForm() {
 
   const nbPagesInput = document.createElement('input');
   nbPagesInput.type = 'number';
+  if (bookNbPages) nbPagesInput.value = bookNbPages;
   nbPagesInput.max = '5000';
   nbPagesInput.min = '0';
   nbPagesInput.id = 'nb-pages-input';
@@ -167,6 +218,7 @@ function createAddBookForm() {
 
   const coverLinkInput = document.createElement('input');
   coverLinkInput.placeholder = 'Cover link (opt):';
+  if (bookCoverLink) coverLinkInput.value = bookCoverLink;
   coverLinkInput.type = 'text';
   coverLinkInput.id = 'cover-link-input';
   coverLinkInput.classList.add('form-input');
@@ -182,6 +234,7 @@ function createAddBookForm() {
 
   const readInput = document.createElement('input');
   readInput.type = 'checkbox';
+  if (bookRead) readInput.checked = true;
   readInput.id = 'read-input';
   readInput.classList.add('form-input');
   readInput.name = 'read';
@@ -190,13 +243,17 @@ function createAddBookForm() {
 
   const submitInput = document.createElement('input');
   submitInput.type = 'submit';
-  submitInput.value = 'Add the book';
+  // if no title argument => Add new book, else => edit curr book
+  submitInput.value = !bookTitle ? 'Add the book' : 'Edit the book';
 
   const cancelBtn = document.createElement('button');
   cancelBtn.id = 'cancel-form-btn';
   cancelBtn.textContent = 'cancel';
   cancelBtn.addEventListener('click', () => {
-    form.replaceWith(createAddBookBtn());
+    // ! different if edit form
+    // maybe is better to just displayBooks(myLibrary);
+    displayBooks(myLibrary);
+    // form.replaceWith(createAddBookBtn());
   });
 
   form.append(
@@ -209,13 +266,16 @@ function createAddBookForm() {
     submitInput,
     cancelBtn,
   );
-  form.addEventListener('submit', manageNewBookSubmit);
   return form;
 }
+function createAddBookForm() {
+  const addBookForm = createBookForm();
+  addBookForm.addEventListener('submit', manageNewBookSubmit);
+  return addBookForm;
+}
 
-function manageNewBookSubmit(e) {
-  e.preventDefault();
-  const data = new FormData(this);
+function getBookFormDatas(form) {
+  const data = new FormData(form);
   let bookTitle, bookAuthor, bookNbPages, bookCoverLink;
   let bookRead = false;
   for (entry of data) {
@@ -237,13 +297,20 @@ function manageNewBookSubmit(e) {
         break;
     }
   }
-  addBookToLibrary(bookTitle, bookAuthor, bookNbPages, bookRead, bookCoverLink);
+  return [bookTitle, bookAuthor, bookNbPages, bookCoverLink, bookRead];
+}
+function manageNewBookSubmit(e) {
+  e.preventDefault();
+  addBookToLibrary(...getBookFormDatas(this));
   displayBooks(myLibrary);
 }
 
+// manage buttons on books
+// ? move this event on the btns in createBookItem()
 const booksList = document.querySelector('#books-list');
 booksList.addEventListener('click', (e) => {
-  if (!e.target.parentNode) {
+  if (!e.target.parentNode || !e.target.parentNode.parentNode) {
+    console.log('not a button in a book item');
     return;
   }
   const bookIndex = e.target.parentNode.parentNode.dataset.bookIndex;
@@ -254,8 +321,12 @@ booksList.addEventListener('click', (e) => {
         `Are you sure you want to remove ${myLibrary[bookIndex].title}`,
       );
       break;
-    case 'change-status':
+    case 'change-read-status':
       toggleReadStatus(bookIndex);
+      break;
+    case 'edit':
+      displayEditBookForm(bookIndex, e.target.parentNode.parentNode);
+      break;
   }
   if (confirmRemove) {
     removeBook(bookIndex);

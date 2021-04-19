@@ -60,17 +60,14 @@ function createBookItem(title, author, nbPages, read, bookIndex, coverLink) {
     bookAuthorText,
     bookNbPagesText,
     bookCover,
-    bookButtons
+    bookButtons,
   );
 
   return li;
 }
 
 // manage books
-function createAddBookZone() {
-  const addBookZone = document.createElement('li');
-  addBookZone.id = 'add-book-zone';
-
+function createAddBookBtn() {
   const addBookBtn = document.createElement('button');
   addBookBtn.id = 'new-book-btn';
   addBookBtn.textContent = '+';
@@ -78,9 +75,7 @@ function createAddBookZone() {
     this.replaceWith(createAddBookForm());
   });
 
-  addBookZone.append(addBookBtn);
-
-  return addBookZone;
+  return addBookBtn;
 }
 function displayBooks(library) {
   while (booksList.firstChild) {
@@ -93,11 +88,15 @@ function displayBooks(library) {
       book.nbPages,
       book.read,
       bookIndex,
-      book.coverLink
+      book.coverLink,
     );
     booksList.appendChild(bookItem);
   });
-  booksList.append(createAddBookZone());
+  const addBookZone = document.createElement('li');
+  addBookZone.id = 'add-book-zone';
+  addBookZone.append(createAddBookBtn());
+
+  booksList.append(addBookZone);
 }
 
 function addBookToLibrary(title, author, nbPages, read, coverLink) {
@@ -193,6 +192,13 @@ function createAddBookForm() {
   submitInput.type = 'submit';
   submitInput.value = 'Add the book';
 
+  const cancelBtn = document.createElement('button');
+  cancelBtn.id = 'cancel-form-btn';
+  cancelBtn.textContent = 'cancel';
+  cancelBtn.addEventListener('click', () => {
+    form.replaceWith(createAddBookBtn());
+  });
+
   form.append(
     formTitle,
     titleInput,
@@ -200,7 +206,8 @@ function createAddBookForm() {
     nbPagesDiv,
     coverLinkInput,
     readDiv,
-    submitInput
+    submitInput,
+    cancelBtn,
   );
   form.addEventListener('submit', manageNewBookSubmit);
   return form;
@@ -244,7 +251,7 @@ booksList.addEventListener('click', (e) => {
   switch (e.target.dataset.action) {
     case 'remove':
       confirmRemove = confirm(
-        `Are you sure you want to remove ${myLibrary[bookIndex].title}`
+        `Are you sure you want to remove ${myLibrary[bookIndex].title}`,
       );
       break;
     case 'change-status':

@@ -6,6 +6,7 @@ class Book {
     this.nbPages = nbPages;
     this.coverLink = coverLink;
     this.read = false;
+    this.like = undefined;
   }
 
   info() {
@@ -16,16 +17,25 @@ class Book {
   toggleRead() {
     this.read = !this.read;
   }
-  edit(title, author, nbPages, coverLink, read) {
+  edit(title, author, nbPages, coverLink, read, like) {
     this.title = title;
     this.author = author;
     this.nbPages = nbPages;
     this.coverLink = coverLink;
     this.read = read;
+    this.like = like;
   }
 }
 
-function createBookItem(title, author, nbPages, coverLink, read, bookIndex) {
+function createBookItem(
+  title,
+  author,
+  nbPages,
+  coverLink,
+  read,
+  like,
+  bookIndex,
+) {
   const bookTitleText = document.createElement('p');
   bookTitleText.classList.add('book-title');
   bookTitleText.textContent = title;
@@ -51,6 +61,28 @@ function createBookItem(title, author, nbPages, coverLink, read, bookIndex) {
   readButton.setAttribute('data-action', 'change-read-status');
   readButton.textContent = read ? 'R' : 'r';
 
+  const likeLabel = document.createElement('label');
+
+  const likeRadio = document.createElement('input');
+  likeRadio.type = 'radio';
+  likeRadio.name = `like${bookIndex}`;
+  likeRadio.value = 'like';
+  likeRadio.classList.add('like-radio');
+  likeRadio.setAttribute('data-action', 'like');
+  const unlikeRadio = document.createElement('input');
+  unlikeRadio.type = 'radio';
+  unlikeRadio.name = `like${bookIndex}`;
+  unlikeRadio.value = 'unlike';
+  unlikeRadio.classList.add('unlike-radio');
+  unlikeRadio.setAttribute('data-action', 'like');
+  if (like === true) {
+    likeRadio.checked = true;
+  } else if (like === false) {
+    unlikeRadio.checked = true;
+  }
+
+  likeLabel.append(likeRadio, unlikeRadio);
+
   const editButton = document.createElement('button');
   editButton.classList.add('btn-remove');
   editButton.setAttribute('data-action', 'edit');
@@ -63,7 +95,7 @@ function createBookItem(title, author, nbPages, coverLink, read, bookIndex) {
 
   const bookButtons = document.createElement('div');
   bookButtons.classList.add('book-btns');
-  bookButtons.append(readButton, editButton, removeButton);
+  bookButtons.append(readButton, likeLabel, editButton, removeButton);
 
   const bookDiv = document.createElement('div');
   bookDiv.classList.add('book-div');
@@ -108,6 +140,7 @@ function displayBooks(library) {
       book.nbPages,
       book.coverLink,
       book.read,
+      book.like,
       bookIndex,
     );
     booksList.appendChild(bookItem);
@@ -119,9 +152,10 @@ function displayBooks(library) {
   booksList.append(addBookZone);
 }
 
-function addBookToLibrary(title, author, nbPages, coverLink, read) {
+function addBookToLibrary(title, author, nbPages, coverLink, read, like) {
   const newBook = new Book(title, author, nbPages, coverLink);
   newBook.read = read;
+  newBook.like = like;
   myLibrary.push(newBook);
   updateLocalStorage();
 }
@@ -152,6 +186,7 @@ function displayEditBookForm(index, thisBookDiv) {
     currBook.nbPages,
     currBook.coverLink,
     currBook.read,
+    currBook.like,
   );
   editForm.addEventListener('submit', function () {
     const formDatas = getBookFormDatas(this);
@@ -159,6 +194,28 @@ function displayEditBookForm(index, thisBookDiv) {
   });
   thisBookDiv.replaceWith(editForm);
 }
+
+function changeLikeStatus(index, radioBtn) {
+  if (radioBtn.value === 'like') {
+    if (myLibrary[index].like) {
+      // if already true
+      radioBtn.checked = false;
+      myLibrary[index].like = undefined;
+    } else {
+      myLibrary[index].like = true;
+    }
+  } else if (radioBtn.value === 'unlike') {
+    if (myLibrary[index].like === false) {
+      // if already false
+      radioBtn.checked = false;
+      myLibrary[index].like = undefined;
+    } else {
+      myLibrary[index].like = false;
+    }
+  }
+  updateLocalStorage();
+}
+
 // AddBook form
 function createBookForm(
   bookTitle,
@@ -166,9 +223,8 @@ function createBookForm(
   bookNbPages,
   bookCoverLink,
   bookRead,
+  bookLike,
 ) {
-  console.log(bookTitle, bookAuthor, bookNbPages, bookCoverLink, bookRead);
-
   const form = document.createElement('form');
   form.id = 'add-book-form';
 
@@ -224,22 +280,50 @@ function createBookForm(
   coverLinkInput.classList.add('form-input');
   coverLinkInput.name = 'cover-link';
 
+  // read input
   const readDiv = document.createElement('div');
   readDiv.id = 'read-div';
-
   const readLabel = document.createElement('label');
   readLabel.id = 'read-label';
   readLabel.setAttribute('for', 'read-input');
   readLabel.textContent = 'Read? (opt):';
-
   const readInput = document.createElement('input');
   readInput.type = 'checkbox';
   if (bookRead) readInput.checked = true;
   readInput.id = 'read-input';
   readInput.classList.add('form-input');
   readInput.name = 'read';
-
   readDiv.append(readLabel, readInput);
+
+  // like input
+  const likeDiv = document.createElement('div');
+  likeDiv.id = 'like-div';
+  const likeLabel = document.createElement('label');
+  likeLabel.id = 'read-label';
+  likeLabel.setAttribute('for', 'like-input');
+  likeLabel.textContent = 'Like it? (opt):';
+  const likeInput = document.createElement('input');
+  likeInput.type = 'radio';
+  if (bookLike === true) likeInput.checked = false;
+  likeInput.id = 'like-input';
+  likeInput.classList.add('form-input');
+  likeInput.name = 'like';
+  likeInput.value = 'like';
+  const unlikeInput = document.createElement('input');
+  unlikeInput.type = 'radio';
+  if (bookLike === false) unlikeInput.checked = true;
+  unlikeInput.id = 'unlike-input';
+  unlikeInput.classList.add('form-input');
+  unlikeInput.name = 'like';
+  unlikeInput.value = 'unlike';
+  if (bookLike === true) {
+    likeInput.checked = true;
+    unlikeInput.checked = false;
+  } else if (bookLike === false) {
+    unlikeInput.checked = true;
+    likeInput.checked = false;
+  }
+  likeDiv.append(likeLabel, likeInput, 'Yes', unlikeInput, 'No');
 
   const submitInput = document.createElement('input');
   submitInput.type = 'submit';
@@ -250,10 +334,7 @@ function createBookForm(
   cancelBtn.id = 'cancel-form-btn';
   cancelBtn.textContent = 'cancel';
   cancelBtn.addEventListener('click', () => {
-    // ! different if edit form
-    // maybe is better to just displayBooks(myLibrary);
     displayBooks(myLibrary);
-    // form.replaceWith(createAddBookBtn());
   });
 
   form.append(
@@ -263,6 +344,7 @@ function createBookForm(
     nbPagesDiv,
     coverLinkInput,
     readDiv,
+    likeDiv,
     submitInput,
     cancelBtn,
   );
@@ -277,6 +359,7 @@ function createAddBookForm() {
 function getBookFormDatas(form) {
   const data = new FormData(form);
   let bookTitle, bookAuthor, bookNbPages, bookCoverLink;
+  let bookLike = undefined;
   let bookRead = false;
   for (entry of data) {
     switch (entry[0]) {
@@ -295,9 +378,23 @@ function getBookFormDatas(form) {
       case 'read':
         bookRead = true; // if the data exist, it's checked
         break;
+      case 'like':
+        if (entry[1] === 'like') {
+          bookLike = true;
+        } else if (entry[1] === 'unlike') {
+          bookLike = false;
+        }
+        break;
     }
   }
-  return [bookTitle, bookAuthor, bookNbPages, bookCoverLink, bookRead];
+  return [
+    bookTitle,
+    bookAuthor,
+    bookNbPages,
+    bookCoverLink,
+    bookRead,
+    bookLike,
+  ];
 }
 function manageNewBookSubmit(e) {
   e.preventDefault();
@@ -305,15 +402,16 @@ function manageNewBookSubmit(e) {
   displayBooks(myLibrary);
 }
 
-// manage buttons on books
+// ! manage buttons on books
 // ? move this event on the btns in createBookItem()
 const booksList = document.querySelector('#books-list');
 booksList.addEventListener('click', (e) => {
-  if (!e.target.parentNode || !e.target.parentNode.parentNode) {
-    console.log('not a button in a book item');
+  if (!e.target.closest('.book-div')) {
+    console.log('not a target in a book item');
     return;
   }
-  const bookIndex = e.target.parentNode.parentNode.dataset.bookIndex;
+  const bookIndex = e.target.closest('.book-div').dataset.bookIndex;
+
   let confirmRemove;
   switch (e.target.dataset.action) {
     case 'remove':
@@ -326,6 +424,9 @@ booksList.addEventListener('click', (e) => {
       break;
     case 'edit':
       displayEditBookForm(bookIndex, e.target.parentNode.parentNode);
+      break;
+    case 'like':
+      changeLikeStatus(bookIndex, e.target);
       break;
   }
   if (confirmRemove) {

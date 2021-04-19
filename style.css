@@ -133,6 +133,23 @@ body {
 .book-btns button {
   font-size: inherit;
 }
+.book-btns input[type='radio'] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 2rem;
+  height: 2rem;
+  opacity: 0.4;
+}
+.book-btns input[type='radio']:checked {
+  opacity: 1;
+}
+.like-radio {
+  background-color: green;
+}
+.unlike-radio {
+  background-color: red;
+}
 
 /* Add Book Form */
 @keyframes add-book-form-display {
@@ -163,7 +180,7 @@ body {
   animation: add-book-form-display 1s;
 }
 #add-book-form-title {
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   margin-top: 1rem;
   font-size: 1.7rem;
   width: 15rem;
@@ -183,7 +200,8 @@ body {
   font-size: inherit;
 }
 #nb-pages-div,
-#read-div {
+#read-div,
+#like-div {
   display: flex;
   align-items: center;
 }
@@ -192,9 +210,13 @@ body {
   width: 6rem;
   padding-right: 0;
 }
-#add-book-form #read-input {
+#add-book-form #read-input,
+#add-book-form #like-div input {
   margin-left: 0.5rem;
   width: 2rem;
+}
+#add-book-form #like-div input {
+  margin-right: 0.5rem;
 }
 #add-book-form input[type='submit'] {
   margin-top: 2rem;

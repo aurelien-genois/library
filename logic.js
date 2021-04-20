@@ -57,23 +57,25 @@ function createBookItem(
 
   // create btns
   const readButton = document.createElement('button');
-  readButton.classList.add('btn-change-status');
+  readButton.classList.add('btn-change-status', 'fas');
   readButton.setAttribute('data-action', 'change-read-status');
-  readButton.textContent = read ? 'R' : 'r';
+  readButton.textContent = read
+    ? readButton.classList.add('fa-eye')
+    : readButton.classList.add('fa-eye-slash');
 
-  const likeLabel = document.createElement('label');
+  const likeLabel = document.createElement('div');
 
   const likeRadio = document.createElement('input');
   likeRadio.type = 'radio';
   likeRadio.name = `like${bookIndex}`;
   likeRadio.value = 'like';
-  likeRadio.classList.add('like-radio');
+  likeRadio.classList.add('like-radio', 'fa', 'fa-thumbs-up');
   likeRadio.setAttribute('data-action', 'like');
   const unlikeRadio = document.createElement('input');
   unlikeRadio.type = 'radio';
   unlikeRadio.name = `like${bookIndex}`;
   unlikeRadio.value = 'unlike';
-  unlikeRadio.classList.add('unlike-radio');
+  unlikeRadio.classList.add('unlike-radio', 'fa', 'fa-thumbs-down');
   unlikeRadio.setAttribute('data-action', 'like');
   if (like === true) {
     likeRadio.checked = true;
@@ -84,14 +86,12 @@ function createBookItem(
   likeLabel.append(likeRadio, unlikeRadio);
 
   const editButton = document.createElement('button');
-  editButton.classList.add('btn-remove');
+  editButton.classList.add('btn-remove', 'fa', 'fa-edit');
   editButton.setAttribute('data-action', 'edit');
-  editButton.textContent = '/';
 
   const removeButton = document.createElement('button');
-  removeButton.classList.add('btn-remove');
+  removeButton.classList.add('btn-remove', 'fa', 'fa-trash');
   removeButton.setAttribute('data-action', 'remove');
-  removeButton.textContent = 'X';
 
   const bookButtons = document.createElement('div');
   bookButtons.classList.add('book-btns');
@@ -325,17 +325,19 @@ function createBookForm(
   }
   likeDiv.append(likeLabel, likeInput, 'Yes', unlikeInput, 'No');
 
+  const btnsDiv = document.createElement('div');
+  btnsDiv.id = 'form-btns';
   const submitInput = document.createElement('input');
   submitInput.type = 'submit';
   // if no title argument => Add new book, else => edit curr book
   submitInput.value = !bookTitle ? 'Add the book' : 'Edit the book';
-
   const cancelBtn = document.createElement('button');
   cancelBtn.id = 'cancel-form-btn';
   cancelBtn.textContent = 'cancel';
   cancelBtn.addEventListener('click', () => {
     displayBooks(myLibrary);
   });
+  btnsDiv.append(submitInput, cancelBtn);
 
   form.append(
     formTitle,
@@ -345,8 +347,7 @@ function createBookForm(
     coverLinkInput,
     readDiv,
     likeDiv,
-    submitInput,
-    cancelBtn,
+    btnsDiv,
   );
   return form;
 }

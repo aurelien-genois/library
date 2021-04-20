@@ -2,6 +2,7 @@ html {
   /* 1rem = 16px, so when define at 62.5% 1rem = 10 px */
   /* for responsive size, just change this font-size in media-query (for ex retina screen) */
   font-size: 62.5%;
+  background-color: #272017;
 }
 * {
   margin: 0;
@@ -9,6 +10,12 @@ html {
 }
 button {
   cursor: pointer;
+  border: 0 solid transparent;
+}
+button,
+input,
+input::placeholder {
+  font-size: inherit;
 }
 
 body {
@@ -39,7 +46,7 @@ body {
   padding-bottom: 1.5rem;
 }
 #footer a {
-  color: white;
+  color: whitesmoke;
   text-align: center;
   display: block;
   margin-top: 1.5rem;
@@ -57,7 +64,8 @@ body {
 #books-list {
   width: min-content;
   display: grid;
-  grid-gap: 0.2rem;
+  /* grid-gap: 0.2rem; */
+  padding: 0.5rem;
   grid-template-columns: repeat(5, 1fr);
   list-style: none;
   margin: auto;
@@ -65,32 +73,37 @@ body {
   border: solid black 0.1rem;
   border-width: 0 0.2rem;
 }
-@media screen and (max-width: 1120px) {
+@media screen and (max-width: 1285px) {
   #books-list {
     grid-template-columns: repeat(4, 1fr);
   }
 }
-@media screen and (max-width: 920px) {
+@media screen and (max-width: 1045px) {
   #books-list {
     grid-template-columns: repeat(3, 1fr);
   }
 }
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 790px) {
   #books-list {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 /* Book Items */
+#books-list li {
+  margin: 0.5rem;
+  border: solid 2px black;
+}
 #add-book-zone {
-  min-height: 40rem;
+  min-height: 42rem;
+  min-width: 24rem;
   background-color: rgba(202, 161, 127, 0.541);
 }
 .book-div,
 #add-book-form {
   width: 20rem;
   height: 38rem;
-  padding: 1rem;
+  padding: 2rem;
 }
 .book-div {
   background-color: rgb(202, 161, 127);
@@ -119,36 +132,47 @@ body {
   object-fit: scale-down;
   max-width: 20rem;
   margin: 0.5rem 0;
-  border: white 0.1rem solid;
+  border: whitesmoke 0.1rem solid;
 }
 .book-nb-pages {
   font-size: 1.3rem;
 }
 .book-btns {
-  width: 20rem;
+  width: 18rem;
   display: flex;
   justify-content: space-between;
-  margin: 0.5rem 0;
+  margin: 1rem 0 0 0;
 }
-.book-btns button {
-  font-size: inherit;
+.book-btns button,
+.book-btns input[type='radio'] {
+  cursor: pointer;
+  font-size: 1.9rem;
+  background: transparent;
+  border: 0 transparent solid;
+  color: rgb(44, 44, 44);
 }
+.book-btns button:hover,
+.book-btns input[type='radio']:hover {
+  color: rgb(87, 86, 86);
+}
+
 .book-btns input[type='radio'] {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  width: 2rem;
-  height: 2rem;
-  opacity: 0.4;
+  margin: 0 0.4rem;
 }
-.book-btns input[type='radio']:checked {
-  opacity: 1;
+.book-btns .like-radio:checked {
+  color: rgb(51, 138, 11);
 }
-.like-radio {
-  background-color: green;
+.book-btns .unlike-radio:checked {
+  color: rgb(168, 20, 20);
 }
-.unlike-radio {
-  background-color: red;
+.book-btns .like-radio:checked:hover {
+  color: rgb(79, 163, 40);
+}
+.book-btns .unlike-radio:checked:hover {
+  color: rgb(199, 60, 60);
 }
 
 /* Add Book Form */
@@ -169,12 +193,20 @@ body {
   width: 5rem;
   height: 5rem;
   border-radius: 50%;
+  color: whitesmoke;
+  background-color: rgb(12, 157, 167);
   animation: add-book-form-display 1s;
+  transition: all 1s;
+}
+#new-book-btn:hover {
+  background-color: rgb(32, 186, 197);
+  transform: scale(1.3, 1.3);
 }
 #add-book-form {
   display: flex;
   flex-direction: column;
-  background-color: rgb(117, 74, 54);
+  background-color: rgb(128, 96, 67);
+  color: whitesmoke;
   align-items: center;
   font-size: 1.4rem;
   animation: add-book-form-display 1s;
@@ -190,7 +222,9 @@ body {
 #add-book-form > input {
   margin-bottom: 1rem;
 }
-#add-book-form input {
+#add-book-form input[type='text'],
+#add-book-form input[type='number'],
+#add-book-form button {
   width: 17rem;
   padding: 0.5rem 1rem;
   /* line-height: 50%; */
@@ -212,22 +246,67 @@ body {
 }
 #add-book-form #read-input,
 #add-book-form #like-div input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   margin-left: 0.5rem;
-  width: 2rem;
+  padding: 0.1rem;
+
+  border: solid 0.2rem rgb(44, 44, 44);
+  width: 1.8rem;
+  height: 1.8rem;
+  box-sizing: border-box;
+  cursor: pointer;
+  background: transparent;
+  transition: background-color 0.3s;
+}
+#add-book-form #read-input:checked,
+#add-book-form #like-div input:checked {
+  background-color: whitesmoke;
+}
+#add-book-form #like-div input {
+  border-radius: 50%;
 }
 #add-book-form #like-div input {
   margin-right: 0.5rem;
 }
-#add-book-form input[type='submit'] {
+#add-book-form #like-div #unlike-input {
+  margin-left: 1rem;
+}
+#form-btns {
+  display: flex;
+  justify-content: space-between;
+  width: 19rem;
   margin-top: 2rem;
+}
+#add-book-form input[type='submit'],
+#add-book-form #cancel-form-btn {
+  border-radius: 1rem;
+  width: auto;
+  height: 3rem;
+  color: whitesmoke;
+  font-weight: bold;
+  font-family: inherit;
   cursor: pointer;
+  padding: 0.5rem 1rem;
+}
+#add-book-form input[type='submit'] {
+  background-color: rgb(12, 157, 167);
+  border: 0 solid transparent;
+}
+#add-book-form #cancel-form-btn {
+  background-color: rgb(185, 14, 14);
+}
+#add-book-form input[type='submit']:hover {
+  background-color: rgb(32, 186, 197);
+}
+#add-book-form #cancel-form-btn:hover {
+  background-color: rgb(223, 56, 56);
 }
 
-/* footer */
-
 /* mobile */
-@media screen and (max-width: 470px) {
+@media screen and (max-width: 540px) {
   html {
-    font-size: 2.1vw;
+    font-size: 1.85vw;
   }
 }

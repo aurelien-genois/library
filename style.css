@@ -17,6 +17,10 @@ input,
 input::placeholder {
   font-size: inherit;
 }
+/* prevent the default focus outline on chrome */
+:focus {
+  outline: transparent none 0px;
+}
 
 body {
   font-family: 'Amarante', sans-serif;
@@ -41,6 +45,13 @@ body {
   text-align: center;
   padding: 2rem 0;
   font-size: 3.5rem; /*35 px*/
+}
+#sort-select {
+  margin: auto;
+  text-align: center;
+  width: 20rem;
+  display: block;
+  background: whitesmoke;
 }
 #footer {
   padding-bottom: 1.5rem;

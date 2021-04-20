@@ -118,7 +118,7 @@ function updateLocalStorage() {
   localStorage.setItem('books', JSON.stringify(myLibrary));
 }
 
-// manage books
+// manage library
 function createAddBookBtn() {
   const addBookBtn = document.createElement('button');
   addBookBtn.id = 'new-book-btn';
@@ -157,9 +157,145 @@ function addBookToLibrary(title, author, nbPages, coverLink, read, like) {
   newBook.read = read;
   newBook.like = like;
   myLibrary.push(newBook);
+}
+
+function sortLibrary(e) {
+  switch (e.target.value) {
+    case 'title-down':
+      myLibrary.sort((a, b) => {
+        return a.title.localeCompare(b.title);
+      });
+      break;
+    case 'title-up':
+      myLibrary.sort((a, b) => {
+        return b.title.localeCompare(a.title);
+      });
+      break;
+    case 'author-down':
+      myLibrary.sort((a, b) => {
+        return a.author.localeCompare(b.author);
+      });
+      break;
+    case 'author-up':
+      myLibrary.sort((a, b) => {
+        return b.author.localeCompare(a.author);
+      });
+      break;
+    case 'nb-pages-down':
+      myLibrary.sort((a, b) => {
+        return a.nbPages - b.nbPages;
+      });
+      break;
+    case 'nb-pages-up':
+      myLibrary.sort((a, b) => {
+        return b.nbPages - a.nbPages;
+      });
+      break;
+    case 'likes':
+      myLibrary.sort((a, b) => {
+        // sort like first, undefined medium, unlike last
+        if (a.like === true) {
+          if (b.like === true) {
+            return 0;
+          }
+          if (b.like === false) {
+            return -1;
+          }
+          if (b.like === undefined) {
+            return -1;
+          }
+        }
+        if (a.like === false) {
+          if (b.like === true) {
+            return 1;
+          }
+          if (b.like === false) {
+            return 0;
+          }
+          if (b.like === undefined) {
+            return 1;
+          }
+        }
+        if (a.like === undefined) {
+          if (b.like === true) {
+            return 1;
+          }
+          if (b.like === false) {
+            return -1;
+          }
+          if (b.like === undefined) {
+            return 0;
+          }
+        }
+      });
+      break;
+    case 'dislikes':
+      myLibrary.sort((a, b) => {
+        // sort dislike first, undefined medium, like last
+        if (a.like === true) {
+          if (b.like === true) {
+            return 0;
+          }
+          if (b.like === false) {
+            return 1;
+          }
+          if (b.like === undefined) {
+            return 1;
+          }
+        }
+        if (a.like === false) {
+          if (b.like === true) {
+            return -1;
+          }
+          if (b.like === false) {
+            return 0;
+          }
+          if (b.like === undefined) {
+            return -1;
+          }
+        }
+        if (a.like === undefined) {
+          if (b.like === true) {
+            return -1;
+          }
+          if (b.like === false) {
+            return 1;
+          }
+          if (b.like === undefined) {
+            return 0;
+          }
+        }
+      });
+      break;
+    case 'read':
+      myLibrary.sort((a, b) => {
+        if (a.read & !b.read) {
+          return -1;
+        }
+        if (!a.read & b.read) {
+          return 1;
+        }
+        return 0;
+      });
+      break;
+    case 'unread':
+      myLibrary.sort((a, b) => {
+        if (a.read & !b.read) {
+          return 1;
+        }
+        if (!a.read & b.read) {
+          return -1;
+        }
+        return 0;
+      });
+      break;
+  }
+  // e.target.querySelector('option').selected = true;
+  displayBooks(myLibrary);
   updateLocalStorage();
 }
 
+// manage books
 function removeBook(index) {
   myLibrary.splice(index, 1);
   displayBooks(myLibrary);
@@ -401,10 +537,10 @@ function manageNewBookSubmit(e) {
   e.preventDefault();
   addBookToLibrary(...getBookFormDatas(this));
   displayBooks(myLibrary);
+  updateLocalStorage();
 }
 
-// ! manage buttons on books
-// ? move this event on the btns in createBookItem()
+// ? move this event on the btns in createBookItem() ?
 const booksList = document.querySelector('#books-list');
 booksList.addEventListener('click', (e) => {
   if (!e.target.closest('.book-div')) {
@@ -434,6 +570,10 @@ booksList.addEventListener('click', (e) => {
     removeBook(bookIndex);
   }
 });
+
+const sortSelect = document.querySelector('#sort-select');
+sortSelect.addEventListener('input', sortLibrary);
+sortSelect.querySelector('option').selected = true;
 
 // set the library
 const defaultData = [

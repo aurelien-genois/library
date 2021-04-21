@@ -161,10 +161,12 @@ body {
   background: transparent;
   border: 0 transparent solid;
   color: rgb(44, 44, 44);
+  transition: all 0.4s;
 }
 .book-btns button:hover,
 .book-btns input[type='radio']:hover {
   color: rgb(87, 86, 86);
+  transform: scale(1.3, 1.3);
 }
 
 .book-btns input[type='radio'] {
@@ -197,20 +199,41 @@ body {
 }
 
 #new-book-btn {
-  font-size: 5rem;
+  font-size: 8rem;
   font-weight: bold;
-  line-height: 0;
+  line-height: 0px;
   margin: auto;
   width: 5rem;
   height: 5rem;
+  padding-bottom: 0.4rem;
   border-radius: 50%;
   color: whitesmoke;
-  background-color: rgb(12, 157, 167);
+  background: transparent;
   animation: add-book-form-display 1s;
   transition: all 1s;
+  position: relative;
 }
-#new-book-btn:hover {
-  background-color: rgb(32, 186, 197);
+#new-book-btn:before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  content: '';
+  display: block;
+  border-radius: inherit;
+  width: 0rem;
+  height: 0rem;
+  transition: all 1s;
+  background-color: rgb(12, 157, 167);
+}
+#new-book-btn:hover:before,
+#new-book-btn:active:before {
+  width: 6rem;
+  height: 6rem;
+}
+#new-book-btn:hover,
+#new-book-btn:active {
   transform: scale(1.3, 1.3);
 }
 #add-book-form {
@@ -261,18 +284,43 @@ body {
   -moz-appearance: none;
   appearance: none;
   margin-left: 0.5rem;
-  padding: 0.1rem;
-
   border: solid 0.2rem rgb(44, 44, 44);
   width: 1.8rem;
   height: 1.8rem;
   box-sizing: border-box;
   cursor: pointer;
   background: transparent;
-  transition: background-color 0.3s;
+  /* transition: background-color 0.3s; */
+  position: relative;
+  transform: scale(1, 1); /* for :before visibility */
+  overflow: hidden;
 }
-#add-book-form #read-input:checked,
-#add-book-form #like-div input:checked {
+#add-book-form #read-input:before,
+#add-book-form #like-div input:before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  content: '';
+  display: block;
+  border-radius: inherit;
+  width: 0rem;
+  height: 0rem;
+  transition: width 0.8s, height 0.8s;
+  background-color: rgb(44, 44, 44);
+}
+#add-book-form #read-input:hover:before,
+#add-book-form #like-div input:hover:before,
+#add-book-form #read-input:active:before,
+#add-book-form #like-div input:active:before {
+  width: 1rem;
+  height: 1rem;
+}
+#add-book-form #read-input:checked:before,
+#add-book-form #like-div input:checked:before {
+  width: 2rem;
+  height: 2rem;
   background-color: whitesmoke;
 }
 #add-book-form #like-div input {

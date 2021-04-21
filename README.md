@@ -9,27 +9,43 @@ The [fifth Odin project](https://www.theodinproject.com/paths/full-stack-javascr
 ## Features
 <p align="center">
 <img src="screenshot-1.gif" alt="screenshot-1" width="80%"/></p>
-- Can... => create a new book / read
+
+- Can open a form to add a new book by clicking on the  "+" button
+- Can add a new book to the library by defining the title, the author, the number of pages, an optional link for the book cover and setting optional read and like status
+- Each text input of the new book form has a limit of number of characters, the number input has max and min limits for the number
+- Can cancel the new book form
+
 
  <br>
  <br>
 <p align="center">
 <img src="screenshot-2.gif" alt="screenshot-2" width="80%"/></p>
-- Can... => like/dislike, delete a book
+
+- Can set or unset the read status for a book by clicking on its icon
+- Can like, dislike or remove the like status for a book by clicking on their icons
+- Can delete a book by clicking on the bin (or trash) icon
+- A confirm popup asks for a confirmation before delete the book
+
 
  <br>
  <br>
 <p align="center">
 <img src="screenshot-3.gif" alt="screenshot-3" width="80%"/></p>
-- Can... => edit a book
+
+- Can open a edit form (similar to the new book form) by clicking on the edit icon
+- Can edit a book's informations by modifying them directly in the already filled inputs 
+- Can cancel the edit form
+
 
  <br>
  <br>
 <p align="center">
 <img src="screenshot-4.gif" alt="screenshot-4" width="80%"/></p>
-- Can... => sort by title down/title up, by likes, by nb pages down
 
-
+- Can sort the library alphabetically by title or author (up and down)
+- Can sort by number of pages (up and down)
+- Can sort by likes (likes first or dislikes first, unset likes are always in the middle of them)
+- Can sort by read status (read books first or unread ones first)
 
 
 ## Challenges

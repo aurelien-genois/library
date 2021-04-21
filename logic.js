@@ -290,7 +290,10 @@ function sortLibrary(e) {
       });
       break;
   }
-  // e.target.querySelector('option').selected = true;
+  document.querySelector('#sort-text').textContent = `Sorted by ${
+    e.target.querySelector(`option[value=${e.target.value}]`).textContent
+  }`;
+  e.target.querySelector('option').selected = true;
   displayBooks(myLibrary);
   updateLocalStorage();
 }

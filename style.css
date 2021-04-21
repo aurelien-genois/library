@@ -46,12 +46,23 @@ body {
   padding: 2rem 0;
   font-size: 3.5rem; /*35 px*/
 }
-#sort-select {
+#sort-div {
+  display: flex;
+  align-items: center;
+  width: max-content;
   margin: auto;
+  font-size: 1.6rem;
+}
+#sort-div #sort-select {
+  padding: 0 2rem;
   text-align: center;
-  width: 20rem;
-  display: block;
-  background: whitesmoke;
+  font-size: inherit;
+  font-family: inherit;
+  background: rgb(202, 161, 127);
+  border: solid 0.1rem black;
+}
+#sort-div #sort-text {
+  padding-right: 1rem;
 }
 #footer {
   padding-bottom: 1.5rem;

@@ -245,7 +245,7 @@ body {
   margin: auto;
   width: 5rem;
   height: 5rem;
-  padding-bottom: 0.4rem;
+  font-family: Arial, Helvetica, sans-serif;
   border-radius: 50%;
   color: whitesmoke;
   background: transparent;

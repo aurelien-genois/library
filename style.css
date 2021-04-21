@@ -2,7 +2,8 @@ html {
   /* 1rem = 16px, so when define at 62.5% 1rem = 10 px */
   /* for responsive size, just change this font-size in media-query (for ex retina screen) */
   font-size: 62.5%;
-  background-color: #272017;
+  background-image: url('header-footer-bg.png');
+  background-position: center;
 }
 * {
   margin: 0;
@@ -29,7 +30,6 @@ body {
 /* header */
 #header,
 #footer {
-  background: #272017;
   color: rgb(231, 173, 66);
 }
 #header::after,
@@ -52,6 +52,7 @@ body {
   width: max-content;
   margin: auto;
   font-size: 1.6rem;
+  margin-bottom: 1rem;
 }
 #sort-div #sort-select {
   padding: 0 2rem;
@@ -81,7 +82,21 @@ body {
 
 /* Responsive Books list */
 #library-list {
-  background-color: #6e563a;
+  background-color: green;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+}
+#library-list:before,
+#library-list:after {
+  content: '';
+  height: 100%;
+  background-image: url('library-bg.png');
+}
+#library-list:before {
+  background-position: right;
+}
+#library-list:after {
+  background-position: left;
 }
 #books-list {
   width: min-content;
@@ -91,11 +106,11 @@ body {
   grid-template-columns: repeat(5, 1fr);
   list-style: none;
   margin: auto;
-  background-color: #272017;
+  background-image: url('booklist-bg.png');
   border: solid black 0.1rem;
   border-width: 0 0.2rem;
 }
-@media screen and (max-width: 1285px) {
+@media screen and (max-width: 1300px) {
   #books-list {
     grid-template-columns: repeat(4, 1fr);
   }
@@ -119,7 +134,19 @@ body {
 #add-book-zone {
   min-height: 42rem;
   min-width: 24rem;
-  background-color: rgba(202, 161, 127, 0.541);
+  position: relative;
+  transform: scale(1, 1); /* for :after visibility */
+}
+#add-book-zone:after {
+  content: '';
+  background-image: url('book-bg.png');
+  position: absolute;
+  opacity: 0.5;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
 }
 .book-div,
 #add-book-form {
@@ -128,7 +155,8 @@ body {
   padding: 2rem;
 }
 .book-div {
-  background-color: rgb(202, 161, 127);
+  background-image: url('book-bg.png');
+  background-size: 22rem;
   display: grid;
   grid-template-rows: 1fr 1fr repeat(3, auto);
   justify-items: center;
@@ -221,7 +249,7 @@ body {
   color: whitesmoke;
   background: transparent;
   animation: add-book-form-display 1s;
-  transition: all 1s;
+  transition: all 0.4s;
   position: relative;
 }
 #new-book-btn:before {
@@ -235,7 +263,7 @@ body {
   border-radius: inherit;
   width: 0rem;
   height: 0rem;
-  transition: all 1s;
+  transition: all 0.4s;
   background-color: rgb(12, 157, 167);
 }
 #new-book-btn:hover:before,
@@ -250,12 +278,13 @@ body {
 #add-book-form {
   display: flex;
   flex-direction: column;
-  background-color: rgb(128, 96, 67);
-  color: whitesmoke;
+  background-image: url('book-bg.png');
+  color: inherit;
   align-items: center;
   font-size: 1.4rem;
   animation: add-book-form-display 1s;
 }
+
 #add-book-form-title {
   margin-bottom: 2rem;
   margin-top: 1rem;
@@ -318,7 +347,7 @@ body {
   border-radius: inherit;
   width: 0rem;
   height: 0rem;
-  transition: width 0.8s, height 0.8s;
+  transition: width 0.4s, height 0.4s;
   background-color: rgb(44, 44, 44);
 }
 #add-book-form #read-input:hover:before,
@@ -378,5 +407,6 @@ body {
 @media screen and (max-width: 540px) {
   html {
     font-size: 1.85vw;
+    background-size: 50vw;
   }
 }

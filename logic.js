@@ -407,6 +407,7 @@ function createBookForm(
   nbPagesInput.id = 'nb-pages-input';
   nbPagesInput.classList.add('form-input');
   nbPagesInput.name = 'nb-pages';
+  nbPagesInput.setAttribute('maxlength', '6');
   nbPagesInput.required = true;
 
   nbPagesDiv.append(nbPagesLabel, nbPagesInput);
@@ -418,6 +419,7 @@ function createBookForm(
   coverLinkInput.id = 'cover-link-input';
   coverLinkInput.classList.add('form-input');
   coverLinkInput.name = 'cover-link';
+  coverLinkInput.setAttribute('maxlength', '2000');
 
   // read input
   const readDiv = document.createElement('div');

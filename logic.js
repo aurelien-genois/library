@@ -163,32 +163,32 @@ function sortLibrary(e) {
   switch (e.target.value) {
     case 'title-down':
       myLibrary.sort((a, b) => {
-        return a.title.localeCompare(b.title);
+        return b.title.localeCompare(a.title);
       });
       break;
     case 'title-up':
       myLibrary.sort((a, b) => {
-        return b.title.localeCompare(a.title);
+        return a.title.localeCompare(b.title);
       });
       break;
     case 'author-down':
       myLibrary.sort((a, b) => {
-        return a.author.localeCompare(b.author);
+        return b.author.localeCompare(a.author);
       });
       break;
     case 'author-up':
       myLibrary.sort((a, b) => {
-        return b.author.localeCompare(a.author);
+        return a.author.localeCompare(b.author);
       });
       break;
     case 'nb-pages-down':
       myLibrary.sort((a, b) => {
-        return a.nbPages - b.nbPages;
+        return b.nbPages - a.nbPages;
       });
       break;
     case 'nb-pages-up':
       myLibrary.sort((a, b) => {
-        return b.nbPages - a.nbPages;
+        return a.nbPages - b.nbPages;
       });
       break;
     case 'likes':

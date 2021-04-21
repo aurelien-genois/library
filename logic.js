@@ -591,14 +591,6 @@ const defaultData = [
       'https://prodimage.images-bn.com/pimages/9780547928227_p0_v2_s550x406.jpg',
   },
   {
-    title: 'Concrete Rose',
-    author: 'Angie Thomas',
-    nbPages: '320',
-    read: false,
-    coverLink:
-      'https://prodimage.images-bn.com/pimages/9780063046788_p0_v2_s550x406.jpg',
-  },
-  {
     title: "Fofo's Life",
     author: 'Fofo',
     nbPages: '0',
@@ -630,28 +622,12 @@ const defaultData = [
       'https://prodimage.images-bn.com/pimages/9781974710027_p0_v1_s550x406.jpg',
   },
   {
-    title: 'To Kill a Mockingbird',
-    author: 'Harper Lee',
-    nbPages: '384',
-    read: false,
-    coverLink:
-      'https://prodimage.images-bn.com/pimages/9780446310789_p0_v6_s550x406.jpg',
-  },
-  {
     title: 'The Great Gatsby',
     author: 'F. Scott Fitzgerald',
     nbPages: '208',
     read: false,
     coverLink:
       'https://prodimage.images-bn.com/pimages/9780743273565_p0_v8_s550x406.jpg',
-  },
-  {
-    title: 'Felix Ever After',
-    author: 'Kacen Callender',
-    nbPages: '368',
-    read: false,
-    coverLink:
-      'https://prodimage.images-bn.com/pimages/9780062820259_p0_v2_s550x406.jpg',
   },
 ];
 let myLibrary = JSON.parse(localStorage.getItem('books')) || defaultData;

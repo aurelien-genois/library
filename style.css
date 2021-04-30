@@ -333,7 +333,7 @@ body {
   background: transparent;
   /* transition: background-color 0.3s; */
   position: relative;
-  transform: scale(1, 1); /* for :before visibility */
+  transform: scale(1, 1); /* for :before visibility because of its z-index property */
   overflow: hidden;
 }
 #add-book-form #read-input:before,

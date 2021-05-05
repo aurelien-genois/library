@@ -66,19 +66,29 @@ body {
 #sort-div #sort-text {
   padding-right: 1rem;
 }
+
+/* footer */
 #footer {
-  padding-bottom: 1.5rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+}
+#footer p {
+  text-align: center;
+  color: whitesmoke;
+  margin: 1.5rem auto;
 }
 #footer a {
-  color: whitesmoke;
-  text-align: center;
-  display: block;
-  margin-top: 1.5rem;
+  color: rgb(61, 156, 245);
   text-decoration: none;
-  font-size: 1.2rem;
+}
+#footer a:visited {
+  color: rgb(168, 105, 228);
 }
 #footer a:hover {
-  color: inherit;
+  color: #8bc3f8;
 }
 
 /* Responsive Books list */

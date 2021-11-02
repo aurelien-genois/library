@@ -86,7 +86,7 @@ function createBookItem(
   likeLabel.append(likeRadio, unlikeRadio);
 
   const editButton = document.createElement('button');
-  editButton.classList.add('btn-remove', 'fa', 'fa-edit');
+  editButton.classList.add('btn-edit', 'fa', 'fa-edit');
   editButton.setAttribute('data-action', 'edit');
 
   const removeButton = document.createElement('button');

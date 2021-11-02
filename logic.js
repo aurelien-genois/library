@@ -373,7 +373,7 @@ function createBookForm(
 
   const titleInput = document.createElement('input');
   titleInput.placeholder = 'Title:';
-  if (bookTitle) titleInput.value = bookTitle;
+  titleInput.value = bookTitle ?? '';
   titleInput.type = 'text';
   titleInput.id = 'title-input';
   titleInput.classList.add('form-input');
@@ -383,7 +383,7 @@ function createBookForm(
 
   const authorInput = document.createElement('input');
   authorInput.placeholder = 'Author:';
-  if (bookAuthor) authorInput.value = bookAuthor;
+  authorInput.value = bookAuthor ?? '';
   authorInput.type = 'text';
   authorInput.id = 'author-input';
   authorInput.classList.add('form-input');
@@ -401,7 +401,7 @@ function createBookForm(
 
   const nbPagesInput = document.createElement('input');
   nbPagesInput.type = 'number';
-  if (bookNbPages) nbPagesInput.value = bookNbPages;
+  nbPagesInput.value = bookNbPages ?? '';
   nbPagesInput.max = '5000';
   nbPagesInput.min = '0';
   nbPagesInput.id = 'nb-pages-input';
@@ -414,7 +414,7 @@ function createBookForm(
 
   const coverLinkInput = document.createElement('input');
   coverLinkInput.placeholder = 'Cover link (opt):';
-  if (bookCoverLink) coverLinkInput.value = bookCoverLink;
+  coverLinkInput.value = bookCoverLink ?? '';
   coverLinkInput.type = 'text';
   coverLinkInput.id = 'cover-link-input';
   coverLinkInput.classList.add('form-input');
@@ -430,7 +430,7 @@ function createBookForm(
   readLabel.textContent = 'Read? (opt):';
   const readInput = document.createElement('input');
   readInput.type = 'checkbox';
-  if (bookRead) readInput.checked = true;
+  readInput.checked = bookRead ?? false;
   readInput.id = 'read-input';
   readInput.classList.add('form-input');
   readInput.name = 'read';
@@ -445,25 +445,19 @@ function createBookForm(
   likeLabel.textContent = 'Like it? (opt):';
   const likeInput = document.createElement('input');
   likeInput.type = 'radio';
-  if (bookLike === true) likeInput.checked = false;
+  likeInput.checked = (bookLike === true);
   likeInput.id = 'like-input';
   likeInput.classList.add('form-input');
   likeInput.name = 'like';
   likeInput.value = 'like';
   const unlikeInput = document.createElement('input');
   unlikeInput.type = 'radio';
-  if (bookLike === false) unlikeInput.checked = true;
+  unlikeInput.checked = (bookLike === false);
   unlikeInput.id = 'unlike-input';
   unlikeInput.classList.add('form-input');
   unlikeInput.name = 'like';
   unlikeInput.value = 'unlike';
-  if (bookLike === true) {
-    likeInput.checked = true;
-    unlikeInput.checked = false;
-  } else if (bookLike === false) {
-    unlikeInput.checked = true;
-    likeInput.checked = false;
-  }
+
   likeDiv.append(likeLabel, likeInput, 'Yes', unlikeInput, 'No');
 
   const btnsDiv = document.createElement('div');
